@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\ImportDatabaseData;
+use Spatie\Permission\Models\Role;
 
 class DataImportController extends Controller
 {
@@ -23,11 +24,17 @@ class DataImportController extends Controller
      */
     public function index(Request $request)
     {
-        $userPermissions = auth()->user()->getPermissionNames()->toArray();
+        $user = auth()->user();
+
+        if (auth()->user()->hasRole('Admin')) {
+
+            $userPermissions = Role::findByName('Admin')->permissions->pluck('name')->toArray();
+        
+        } else {
+            $userPermissions = $user->getPermissionNames()->toArray();
+        }
 
         $types = $this->getAllowedImportTypesForCurrentUser($userPermissions);
-
-        //return $types;
 
         return view('dataimports.index', compact('types'));
     }
