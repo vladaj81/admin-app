@@ -70,7 +70,7 @@ Admin panel application for managing users, permissions and data import
 - Permissions for tabs are configured in the adminLTE config file, and permissions for import types are checked on the back-end.
 - Import types are pulled dynamically from importtypes.php config file.
 
-- Regarding the import type from the config that has two files, I set that each file is displayed separately on the front-end, since this way it would not be known into which db table which file should be imported.
+- Regarding the import type from the config that has two files, I set that each file is displayed separately on the front-end, because otherwise it would not be known which file should be imported in which db table.
 
 - Regarding permissions, by default the admin user is assigned the Admin role and all permissions associated with it. (Role management is not implemented)
 
